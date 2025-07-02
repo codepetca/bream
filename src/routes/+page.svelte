@@ -3,12 +3,12 @@
 
   // 6 pairs, 12 cards
   const images = [
-    'https://source.unsplash.com/collection/190727/200x200?sig=1',
-    'https://source.unsplash.com/collection/190727/200x200?sig=2',
-    'https://source.unsplash.com/collection/190727/200x200?sig=3',
-    'https://source.unsplash.com/collection/190727/200x200?sig=4',
-    'https://source.unsplash.com/collection/190727/200x200?sig=5',
-    'https://source.unsplash.com/collection/190727/200x200?sig=6'
+    'https://api.dicebear.com/9.x/fun-emoji/svg?seed=cat',
+    'https://api.dicebear.com/9.x/fun-emoji/svg?seed=dog',
+    'https://api.dicebear.com/9.x/fun-emoji/svg?seed=elephant',
+    'https://api.dicebear.com/9.x/fun-emoji/svg?seed=lion',
+    'https://api.dicebear.com/9.x/fun-emoji/svg?seed=tiger',
+    'https://api.dicebear.com/9.x/fun-emoji/svg?seed=bear'
   ];
 
   type Card = {
@@ -189,7 +189,7 @@ button:hover {
         {#if card.flipped || card.matched}
           <img src={card.image} alt="Card image" />
         {:else}
-          <div class="back">?</div>
+          <div class="back">🐾</div>
         {/if}
       </div>
     {/each}
