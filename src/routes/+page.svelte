@@ -129,7 +129,7 @@
 .card .back {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #a7c7e7 0%, #f7cac9 100%);
+  background: linear-gradient(135deg, #4a90e2 0%, #a7c7e7 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,10 +138,26 @@
   border-radius: 0.7rem;
   pointer-events: none;
 }
-.status {
+.win-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+.win-message {
+  background: white;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  font-size: 2rem;
   text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 button {
   display: block;
@@ -171,28 +187,27 @@ button:hover {
 </style>
 
 <div class="game-container">
-  <div class="status">
-    {#if gameWon}
-      <div>🎉 You won in {moves} moves!</div>
-    {:else}
-      <div>Moves: {moves} | Matches: {matches}/{images.length}</div>
-    {/if}
-  </div>
+  {#if gameWon}
+    <div class="win-overlay" on:click={resetGame} on:keydown={(e) => e.key === 'Enter' && resetGame()} role="button" tabindex="0">
+      <div class="win-message">🎉 You won!</div>
+    </div>
+  {/if}
   <div class="grid">
     {#each cards as card (card.id)}
       <div
         class="card {card.flipped || card.matched ? 'flipped' : ''} {card.matched ? 'matched' : ''}"
         on:click={() => flipCard(card)}
-        aria-label={card.flipped || card.matched ? 'Card image' : 'Hidden card'}
+        on:keydown={(e) => e.key === 'Enter' && flipCard(card)}
+        aria-label={card.flipped || card.matched ? 'Flipped card' : 'Hidden card'}
+        role="button"
         tabindex="0"
       >
         {#if card.flipped || card.matched}
-          <img src={card.image} alt="Card image" />
+          <img src={card.image} alt="" />
         {:else}
           <div class="back">🐾</div>
         {/if}
       </div>
     {/each}
   </div>
-  <button on:click={resetGame} aria-label="Restart game">Restart</button>
 </div>
